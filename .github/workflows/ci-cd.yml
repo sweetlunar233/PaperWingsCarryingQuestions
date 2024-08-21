@@ -20,7 +20,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20'  # 指定 Node.js 版本
+        node-version: '14'  # 指定 Node.js 版本
 
     # 后端设置：Python 环境
     - name: Set up Python 3.11
@@ -40,11 +40,14 @@ jobs:
     # # Docker化：构建并推送 Docker 镜像
     # - name: Build Docker images
     #   run: |
-    #     docker build -t username/vueapp:${{ github.sha }} ./frontend  # 构建前端镜像
-    #     docker build -t username/djangoapp:${{ github.sha }} ./backend  # 构建后端镜像
+    #     docker build -t AppFront ./Questionnaire  # 构建前端镜像
+    #     docker pull mysql:latest  # 构建数据库镜像
+    #     docker build -t AppBackend ./Questionnaire_backend  # 构建后端镜像
     #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  # Docker 登录
-    #     docker push username/vueapp:${{ github.sha }}  # 推送前端镜像
-    #     docker push username/djangoapp:${{ github.sha }}  # 推送后端镜像
+    #     docker push AppFront  # 推送前端镜像
+    #     docker push AppDB # 推送数据库镜像
+    #     docker push AppBackend  # 推送后端镜像
+    #     docker run -itd -p 
 
     # # 部署到 Kubernetes
     # - name: Deploy to Kubernetes
