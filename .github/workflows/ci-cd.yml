@@ -64,7 +64,7 @@ jobs:
           fi
 
           # 构建 Docker 镜像
-          sudo docker compose up --build
+          sudo docker-compose up --build
 
           # 进入后端项目目录，安装依赖并运行测试
           cd Questionnaire_backend
