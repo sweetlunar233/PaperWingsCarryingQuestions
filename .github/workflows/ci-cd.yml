@@ -18,6 +18,7 @@ jobs:
         password: BUaa21374125
         key: ${{ secrets.SSH_KEY }}
         script: |
+          sudo -i
           apt-get update
           # 检查并安装 git
           if ! command -v git &> /dev/null; then
