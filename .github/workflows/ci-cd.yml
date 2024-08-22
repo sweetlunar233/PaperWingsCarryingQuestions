@@ -18,12 +18,25 @@ jobs:
         password: BUaa21374125
         key: ${{ secrets.SSH_KEY }}
         script: |
-          # 确保 git 安装在服务器上
-          git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git || git -C PaperWingsCarryingQuestions_Basic pull
-          cd PaperWingsCarryingQuestions_Basic
+          # 检查并安装 git
+          if ! command -v git &> /dev/null; then
+            echo "Git not found. Installing Git..."
+            sudo apt-get update
+            sudo apt-get install -y git
+          fi
+          
+          if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
+              # 如果项目目录存在，则进入目录并执行 git pull
+              cd PaperWingsCarryingQuestions_Basic
+              git pull
+            else
+              # 如果项目目录不存在，则执行 git clone
+              git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
+              cd PaperWingsCarryingQuestions_Basic
+            fi
 
           # 构建 Docker 镜像
-          docker-compose up --build -d
+          docker-compose up --build
 
           # 进入后端项目目录，安装依赖并运行测试
           cd Questionnaire_backend/backend
