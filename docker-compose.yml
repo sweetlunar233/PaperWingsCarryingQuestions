@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./Questionnaire_backend/appDB  # 指向数据库Dockerfile
+    image: mydb
+    container_name: mydb
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: db
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+  back:
+    build: ./Questionnaire_backend  # 指向后端文件夹
+    image: myback
+    container_name: myback
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=3306
+      - DJANGO_DB_USER=root
+      - DJANGO_DB_PASSWORD=123456
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back:/app
+    networks:
+      - mynetwork
+
+  front:
+    build: ./Questionnaire  # 指向前端文件夹
+    image: myfront
+    container_name: myfront
+    ports:
+      - "1234:80"  # 示例端口，视前端应用而定
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  db_data:
