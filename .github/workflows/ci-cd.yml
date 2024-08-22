@@ -18,7 +18,6 @@ jobs:
         password: BUaa21374125
         key: ${{ secrets.SSH_KEY }}
         script: |
-          
           sudo apt-get update
           # 检查并安装 git
           if ! command -v git &> /dev/null; then
@@ -36,13 +35,10 @@ jobs:
             sudo systemctl enable docker
           fi
 
-          # 检查并安装 docker-compose
-          if ! command -v docker-compose &> /dev/null; then
-            echo "docker-compose not found. Installing docker-compose..."
+          # 检查并安装 docker-compose-plugin
+          if ! docker compose version &> /dev/null; then
+            echo "docker-compose-plugin not found. Installing docker-compose-plugin..."
             sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-            sudo apt  install docker-compose 
-            # sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
           fi
 
           # 检查并安装 Python 3.11
@@ -55,22 +51,25 @@ jobs:
             sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
           fi
           
+          # 使用虚拟环境
+          python3.11 -m venv venv
+          source venv/bin/activate
+          
           if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
-              # 如果项目目录存在，则进入目录并执行 git pull
               cd PaperWingsCarryingQuestions_Basic
               git pull
             else
-              # 如果项目目录不存在，则执行 git clone
               git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
               cd PaperWingsCarryingQuestions_Basic
-            fi
+          fi
 
           # 构建 Docker 镜像
-          docker-compose up --build
+          sudo docker compose up --build
 
           # 进入后端项目目录，安装依赖并运行测试
-          cd Questionnaire_backend  # 进入后端项目目录
-          python -m pip install --upgrade pip  # 升级 pip
-          pip install -r requirements.txt  # 安装依赖
+          cd Questionnaire_backend
+          python3.11 -m pip install --upgrade pip
+          pip install -r requirements.txt
           cd backend
-          python manage.py test  # 运行测试
+          python3.11 manage.py test
+
