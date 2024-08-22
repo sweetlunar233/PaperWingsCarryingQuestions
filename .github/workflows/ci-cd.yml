@@ -18,8 +18,8 @@ jobs:
         password: BUaa21374125
         key: ${{ secrets.SSH_KEY }}
         script: |
-          sudo -i
-          apt-get update
+          
+          sudo apt-get update
           # 检查并安装 git
           if ! command -v git &> /dev/null; then
             echo "Git not found. Installing Git..."
@@ -39,8 +39,8 @@ jobs:
           # 检查并安装 docker-compose
           if ! command -v docker-compose &> /dev/null; then
             echo "docker-compose not found. Installing docker-compose..."
-            apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-            apt  install docker-compose 
+            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+            sudo apt  install docker-compose 
             # sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             sudo chmod +x /usr/local/bin/docker-compose
           fi
