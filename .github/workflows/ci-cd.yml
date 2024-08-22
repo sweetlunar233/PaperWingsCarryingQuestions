@@ -13,8 +13,9 @@ jobs:
     - name: Remote Operations
       uses: appleboy/ssh-action@master
       with:
-        host: your-server.com
-        username: server_user
+        host: 49.232.201.229
+        username: ubuntu
+        password: BUaa21374125
         key: ${{ secrets.SSH_KEY }}
         script: |
           # 确保 git 安装在服务器上
