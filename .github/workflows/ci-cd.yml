@@ -24,6 +24,32 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y git
           fi
+
+          # 检查并安装 Docker
+          if ! command -v docker &> /dev/null; then
+            echo "Docker not found. Installing Docker..."
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+          fi
+
+          # 检查并安装 docker-compose
+          if ! command -v docker-compose &> /dev/null; then
+            echo "docker-compose not found. Installing docker-compose..."
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+          fi
+
+          # 检查并安装 Python 3.11
+          if ! command -v python3.11 &> /dev/null; then
+            echo "Python 3.11 not found. Installing Python 3.11..."
+            sudo apt-get update
+            sudo apt-get install -y software-properties-common
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt-get update
+            sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
+          fi
           
           if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               # 如果项目目录存在，则进入目录并执行 git pull
@@ -39,6 +65,9 @@ jobs:
           docker-compose up --build
 
           # 进入后端项目目录，安装依赖并运行测试
-          cd Questionnaire_backend/backend
-          python3.11 manage.py test
+          cd Questionnaire_backend  # 进入后端项目目录
+          python -m pip install --upgrade pip  # 升级 pip
+          pip install -r requirements.txt  # 安装依赖
+          cd backend
+          python manage.py test  # 运行测试
 
