@@ -35,3 +35,4 @@ jobs:
           # 进入后端项目目录，安装依赖并运行测试
           cd Questionnaire_backend/backend
           python3.11 manage.py test
+          
