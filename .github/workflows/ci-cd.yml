@@ -4,52 +4,34 @@ on:  # 定义触发事件
   push:  # 在推送时触发
     branches:
       - main  # 只对 main 分支
-  # pull_request:  # 在拉取请求时触发
-  #   branches:
-  #     - main  # 只对 main 分支
 
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest  # 定义运行环境
+  remote-build-and-deploy:
+    runs-on: ubuntu-latest  # 使用 GitHub 的运行环境
 
     steps:
-    - name: Checkout code  # 签出代码
-      uses: actions/checkout@v2  # 使用的 Action
-
-    # 前端设置：Node.js 环境
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - name: Remote Operations
+      uses: appleboy/ssh-action@master
       with:
-        node-version: '14'  # 指定 Node.js 版本
+        host: your-server.com
+        username: server_user
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          # 确保 git 安装在服务器上
+          git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git || git -C PaperWingsCarryingQuestions_Basic pull
+          cd PaperWingsCarryingQuestions_Basic
 
-    # 后端设置：Python 环境
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.11'  # 指定 Python 版本
+          # 设置 Node.js 环境
+          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          sudo apt-get install -y nodejs
 
-    # 后端构建：安装依赖并运行 Django 测试
-    - name: Install dependencies and run Django tests
-      run: |
-        cd Questionnaire_backend  # 进入后端项目目录
-        python -m pip install --upgrade pip  # 升级 pip
-        pip install -r requirements.txt  # 安装依赖
-        cd backend
-        python manage.py test  # 运行测试
+          # 设置 Python 环境
+          sudo apt-get update
+          sudo apt-get install -y python3.11 python3-pip
 
-    # # Docker化：构建并推送 Docker 镜像
-    # - name: Build Docker images
-    #   run: |
-    #     docker build -t AppFront ./Questionnaire  # 构建前端镜像
-    #     docker pull mysql:latest  # 构建数据库镜像
-    #     docker build -t AppBackend ./Questionnaire_backend  # 构建后端镜像
-    #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  # Docker 登录
-    #     docker push AppFront  # 推送前端镜像
-    #     docker push AppDB # 推送数据库镜像
-    #     docker push AppBackend  # 推送后端镜像
-    #     docker run -itd -p 
+          # 构建 Docker 镜像
+          docker-compose up --build -d
 
-    # # 部署到 Kubernetes
-    # - name: Deploy to Kubernetes
-    #   run: |
-    #     kubectl apply -f k8s/  # 应用
+          # 进入后端项目目录，安装依赖并运行测试
+          cd Questionnaire_backend/backend
+          python3.11 manage.py test
