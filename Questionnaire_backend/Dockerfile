@@ -11,7 +11,7 @@ ADD ./requirements.txt /backend
 RUN cd /backend
 RUN python -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install cryptography
+RUN pip install cryptography -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ADD ./backend /backend
 
