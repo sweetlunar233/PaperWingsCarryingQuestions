@@ -26,7 +26,7 @@ import itertools
 from itertools import chain  
 from operator import attrgetter 
 
-serveAddress="http:127.0.0.1:8080"
+serveAddress="http:127.0.0.1:1234"
 
 #普通问卷的展示界面：
 def display_answer_normal(request,username,questionnaireId,submissionId):

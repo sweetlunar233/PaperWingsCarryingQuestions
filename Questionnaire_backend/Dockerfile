@@ -2,15 +2,15 @@ FROM python:3.11
 
 EXPOSE 8000
 
-RUN mkdir /app_backend -p
+RUN mkdir /backend -p
 
-WORKDIR /app_backend
+WORKDIR /backend
 
-ADD ./requirements.txt /app_backend
+ADD ./requirements.txt /backend
 
-RUN cd /app_backend
+RUN cd /backend
 RUN pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-ADD ./backend /app_backend
+ADD ./backend /backend
 
 CMD ["python3", "manage.py", "runserver", "0:8000"]
