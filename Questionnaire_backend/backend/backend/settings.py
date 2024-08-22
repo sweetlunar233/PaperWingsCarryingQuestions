@@ -56,6 +56,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',  # 允许Vue应用的域名访问
+    'http://localhost:1234'
 ]
 
 CORS_ALLOW_METHODS = [
@@ -94,12 +95,20 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST': 'bj-cynosdbmysql-grp-g9kxigho.sql.tencentcdb.com',  # 数据库主机
+    #     'PORT': 23531,  # 数据库端口
+    #     'USER': 'buaa21374125',  # 数据库用户名
+    #     'PASSWORD': 'BUaa21374125',  # 数据库用户密码
+    #     'NAME': 'db'  # 数据库名
+    # }
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'bj-cynosdbmysql-grp-g9kxigho.sql.tencentcdb.com',  # 数据库主机
-        'PORT': 23531,  # 数据库端口
-        'USER': 'buaa21374125',  # 数据库用户名
-        'PASSWORD': 'BUaa21374125',  # 数据库用户密码
+        'HOST': '127.0.0.1',  # 数据库主机
+        'PORT': 3308,  # 数据库端口
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': '123456',  # 数据库用户密码
         'NAME': 'db'  # 数据库名
     }
 }
