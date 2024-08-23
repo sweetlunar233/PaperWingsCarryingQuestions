@@ -86,6 +86,8 @@ jobs:
           password: BUaa21374125
           key: ${{ secrets.SSH_KEY }}
           script: |
+            python3.11 -m venv venv
+            source venv/bin/activate
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
