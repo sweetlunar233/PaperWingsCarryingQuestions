@@ -85,8 +85,9 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "--------------------------------------------------------------6666666"
-            echo "$(python3 --version)"
+            # echo "--------------------------------------------------------------6666666"
+            # echo "$(python3 --version)"
+
             # if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
             #   cd PaperWingsCarryingQuestions_Basic
             #   git pull
@@ -100,4 +101,15 @@ jobs:
             sudo npm run build
             cd ..
             sudo docker-compose up --build
+            echo "--------------------------------------------------docker-compose finish"
+            
+
+      - name: python manage.py test
+        uses: appleboy/ssh-action@master
+        with:
+          host: 192.144.237.215
+          username: ubuntu
+          password: BUaa2221
+          key: ${{ secrets.SSH_KEY }}
+          script: |
             sudo docker exec -it myback python3 manage.py test
