@@ -96,6 +96,5 @@ jobs:
               cd PaperWingsCarryingQuestions_Basic
             fi
             sudo docker compose up --build
-            
             docker exec -it my_backend python manage.py test
 
