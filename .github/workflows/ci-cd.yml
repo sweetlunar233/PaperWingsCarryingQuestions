@@ -95,7 +95,8 @@ jobs:
               git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
               cd PaperWingsCarryingQuestions_Basic
             fi
-            cd PaperWingsCarryingQuestions_Basic
+
+            # cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire
             sudo npm install
             sudo npm run build
