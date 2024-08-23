@@ -112,4 +112,6 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
+            cd Questionnaire_backend
+            cd backend
             sudo docker exec -it myback python3 manage.py test
