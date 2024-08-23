@@ -2,9 +2,7 @@
 FROM node:20 AS frontend-builder
 WORKDIR /build-app
 COPY . .
-RUN npm config set registry https://registry.npmmirror.com/ && npm install -g npm@10.8.2
-RUN npm install
-RUN npm run build
+
 
 # 第二阶段：nginx打包
 FROM nginx:1.21
