@@ -1,74 +1,103 @@
-name: Python CI/CD Pipeline  # 流程名称
+name: Python CI/CD Pipeline
 
-on:  # 定义触发事件
-  push:  # 在推送时触发
+on:
+  push:
     branches:
-      - main  # 只对 main 分支
+      - main
 
 jobs:
   remote-build-and-deploy:
-    runs-on: ubuntu-latest  # 使用 GitHub 的运行环境
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Remote Operations
-      uses: appleboy/ssh-action@master
-      with:
-        host: 49.232.201.229
-        username: ubuntu
-        password: BUaa21374125
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          sudo apt-get update
-          # 检查并安装 git
-          if ! command -v git &> /dev/null; then
-            echo "Git not found. Installing Git..."
-            sudo apt-get update
-            sudo apt-get install -y git
-          fi
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-          # 检查并安装 Docker
-          if ! command -v docker &> /dev/null; then
-            echo "Docker not found. Installing Docker..."
-            sudo apt-get update
-            sudo apt-get install -y docker.io
-            sudo systemctl start docker
-            sudo systemctl enable docker
-          fi
+      - name: Setup SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
 
-          # 检查并安装 docker-compose-plugin
-          if ! docker compose version &> /dev/null; then
-            echo "docker-compose-plugin not found. Installing docker-compose-plugin..."
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-          fi
+      - name: Install Updates and Basic Tools
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            if ! command -v git &> /dev/null; then
+              echo "Git not found. Installing Git..."
+              sudo apt-get update
+              sudo apt-get install -y git
+            fi
 
-          # 检查并安装 Python 3.11
-          if ! command -v python3.11 &> /dev/null; then
-            echo "Python 3.11 not found. Installing Python 3.11..."
-            sudo apt-get update
-            sudo apt-get install -y software-properties-common
-            sudo add-apt-repository ppa:deadsnakes/ppa
-            sudo apt-get update
-            sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
-          fi
-          
-          # 使用虚拟环境
-          python3.11 -m venv venv
-          source venv/bin/activate
-          
-          if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
+      - name: Install Docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            if ! command -v docker &> /dev/null; then
+              echo "Docker not found. Installing Docker..."
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+            fi
+
+      - name: Install Docker Compose
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            if ! docker compose version &> /dev/null; then
+              echo "docker-compose-plugin not found. Installing docker-compose-plugin..."
+              sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+            fi
+
+      - name: Install Python 3.11
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            if ! command -v python3.11 &> /dev/null; then
+              echo "Python 3.11 not found. Installing Python 3.11..."
+              sudo apt-get install -y software-properties-common
+              sudo add-apt-repository ppa:deadsnakes/ppa
+              sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
+            fi
+
+      - name: Prepare Application Environment
+        uses: appleboy/ssh-action@master
+        with:
+          host: 49.232.201.229
+          username: ubuntu
+          password: BUaa21374125
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            python3.11 -m venv venv
+            source venv/bin/activate
+            if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
             else
               git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
               cd PaperWingsCarryingQuestions_Basic
-          fi
-
-          # 构建 Docker 镜像
-          sudo docker compose up --build
-
-          # 进入后端项目目录，安装依赖并运行测试
-          cd Questionnaire_backend
-          python -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
-          pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-          cd backend
-          python manage.py test
+            fi
+            sudo docker compose up --build
+            cd Questionnaire_backend
+            python -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
+            pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+            cd backend
+            python manage.py test
