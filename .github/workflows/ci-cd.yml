@@ -99,8 +99,4 @@ jobs:
             cd ..
             sudo docker compose up --build
             docker exec -it my_backend python manage.py test
-<<<<<<< HEAD
-
-=======
             
->>>>>>> a9006eb362ed90d10b12d8742e200fe9bfb0df39
