@@ -17,3 +17,4 @@ COPY --from=frontend-builder /build-app/dist /usr/share/nginx/html
 
 # 运行
 CMD ["nginx", "-g", "daemon off;"]
+
