@@ -64,18 +64,18 @@ jobs:
               sudo apt  install docker-compose 
             fi
 
-      - name: Install Python 3.11
-        uses: appleboy/ssh-action@master
-        with:
-          host: 192.144.237.215
-          username: ubuntu
-          password: BUaa2221
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            if ! command -v python3.11 &> /dev/null; then
-              echo "Python 3.11 not found. Installing Python 3.11..."
-              sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev ---fix-missing true
-            fi
+      # - name: Install Python 3.11
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: 192.144.237.215
+      #     username: ubuntu
+      #     password: BUaa2221
+      #     key: ${{ secrets.SSH_KEY }}
+      #     script: |
+      #       if ! command -v python3.11 &> /dev/null; then
+      #         echo "Python 3.11 not found. Installing Python 3.11..."
+      #         sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev ---fix-missing true
+      #       fi
 
       - name: Prepare Application Environment
         uses: appleboy/ssh-action@master
@@ -85,6 +85,8 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo "--------------------------------------------------------------6666666"
+            python3.11 --version > echo
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
