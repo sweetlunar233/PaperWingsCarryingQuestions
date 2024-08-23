@@ -100,5 +100,5 @@ jobs:
             sudo npm run build
             cd ..
             sudo docker-compose up --build
-            docker exec -it my_backend python manage.py test
+            docker exec -it myback python3 manage.py test
             
