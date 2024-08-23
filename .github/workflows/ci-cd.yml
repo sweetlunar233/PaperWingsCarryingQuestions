@@ -74,11 +74,7 @@ jobs:
           script: |
             if ! command -v python3.11 &> /dev/null; then
               echo "Python 3.11 not found. Installing Python 3.11..."
-<<<<<<< HEAD
-              sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev
-=======
               sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev ---fix-missing true
->>>>>>> a9006eb362ed90d10b12d8742e200fe9bfb0df39
             fi
 
       - name: Prepare Application Environment
