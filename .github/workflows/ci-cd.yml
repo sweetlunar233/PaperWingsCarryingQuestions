@@ -73,9 +73,7 @@ jobs:
           script: |
             if ! command -v python3.11 &> /dev/null; then
               echo "Python 3.11 not found. Installing Python 3.11..."
-              sudo apt-get install -y software-properties-common
-              sudo add-apt-repository ppa:deadsnakes/ppa
-              sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
+              sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev
             fi
 
       - name: Prepare Application Environment
@@ -86,8 +84,6 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
-            python3.11 -m venv venv
-            source venv/bin/activate
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
@@ -102,4 +98,4 @@ jobs:
             cd ..
             sudo docker compose up --build
             docker exec -it my_backend python manage.py test
-            
+
