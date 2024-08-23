@@ -101,4 +101,3 @@ jobs:
             cd ..
             sudo docker-compose up --build
             sudo docker exec -it myback python3 manage.py test
-            
