@@ -1,8 +1,8 @@
 # 第一阶段：node镜像打包
-FROM node:14 AS frontend-builder
+FROM node:20 AS frontend-builder
 WORKDIR /build-app
 COPY . .
-RUN npm config set registry https://registry.npmmirror.com/ && npm install -g npm@6.14.18
+RUN npm config set registry https://registry.npmmirror.com/ && npm install -g npm@10.8.2
 RUN npm install
 RUN npm run build
 
