@@ -61,6 +61,7 @@ jobs:
             if ! docker compose version &> /dev/null; then
               echo "docker-compose-plugin not found. Installing docker-compose-plugin..."
               sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+              sudo apt  install docker-compose 
             fi
 
       - name: Install Python 3.11
@@ -73,7 +74,11 @@ jobs:
           script: |
             if ! command -v python3.11 &> /dev/null; then
               echo "Python 3.11 not found. Installing Python 3.11..."
+<<<<<<< HEAD
               sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev
+=======
+              sudo apt-get install -y -o Acquire::http::Proxy="http://mirrors.aliyun.com/ubuntu/" python3.11 python3.11-venv python3.11-dev ---fix-missing true
+>>>>>>> a9006eb362ed90d10b12d8742e200fe9bfb0df39
             fi
 
       - name: Prepare Application Environment
@@ -98,4 +103,8 @@ jobs:
             cd ..
             sudo docker compose up --build
             docker exec -it my_backend python manage.py test
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> a9006eb362ed90d10b12d8742e200fe9bfb0df39
