@@ -93,7 +93,6 @@ jobs:
               cd PaperWingsCarryingQuestions_Basic
             fi
             cd Questionnaire
-            sudo npm config set registry https://registry.npmmirror.com/ && npm install -g npm@10.8.2
             sudo npm install
             sudo npm run build
             cd ..
