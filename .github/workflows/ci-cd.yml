@@ -16,17 +16,17 @@ jobs:
       - name: Setup SSH
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
 
       - name: Install Updates and Basic Tools
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
             if ! command -v git &> /dev/null; then
@@ -38,9 +38,9 @@ jobs:
       - name: Install Docker
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
             if ! command -v docker &> /dev/null; then
@@ -53,9 +53,9 @@ jobs:
       - name: Install Docker Compose
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
             if ! docker compose version &> /dev/null; then
@@ -67,9 +67,9 @@ jobs:
       - name: Install Python 3.11
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
             if ! command -v python3.11 &> /dev/null; then
@@ -82,9 +82,9 @@ jobs:
       - name: Prepare Application Environment
         uses: appleboy/ssh-action@master
         with:
-          host: 49.232.201.229
+          host: 192.144.237.215
           username: ubuntu
-          password: BUaa21374125
+          password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
             python3.11 -m venv venv
@@ -103,3 +103,4 @@ jobs:
             cd ..
             sudo docker compose up --build
             docker exec -it my_backend python manage.py test
+            
