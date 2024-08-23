@@ -103,6 +103,8 @@ DATABASES = {
     #     'PASSWORD': 'BUaa21374125',  # 数据库用户密码
     #     'NAME': 'db'  # 数据库名
     # }
+
+    # 流水线
     "default": {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'db',  # 数据库主机
@@ -111,6 +113,16 @@ DATABASES = {
         'PASSWORD': '123456',  # 数据库用户密码
         'NAME': 'db'  # 数据库名
     }
+
+    #本地跑
+    # "default": {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST': 'db',  # 数据库主机
+    #     'PORT': 3308,  # 数据库端口
+    #     'USER': 'root',  # 数据库用户名
+    #     'PASSWORD': '123456',  # 数据库用户密码
+    #     'NAME': 'db'  # 数据库名
+    # }
 }
 
 
