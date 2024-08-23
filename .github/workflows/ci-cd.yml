@@ -86,7 +86,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             echo "--------------------------------------------------------------6666666"
-            python3.11 --version > echo
+            python3 --version > echo
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
