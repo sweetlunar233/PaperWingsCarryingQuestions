@@ -78,7 +78,7 @@ jobs:
               sudo apt-get install -y python3.11 python3.11-venv python3.11-dev
             fi
 
-      - name: Setup Virtual Environment
+      - name: Prepare Application Environment
         uses: appleboy/ssh-action@master
         with:
           host: 49.232.201.229
@@ -86,48 +86,18 @@ jobs:
           password: BUaa21374125
           key: ${{ secrets.SSH_KEY }}
           script: |
-            if [ ! -d "venv" ]; then
-              python3.11 -m venv venv
-            fi
+            python3.11 -m venv venv
             source venv/bin/activate
-    
-      - name: Update or Clone Repository
-        uses: appleboy/ssh-action@master
-        with:
-          host: 49.232.201.229
-          username: ubuntu
-          password: BUaa21374125
-          key: ${{ secrets.SSH_KEY }}
-          script: |
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
+              cd PaperWingsCarryingQuestions_Basic
               git pull
             else
               git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
+              cd PaperWingsCarryingQuestions_Basic
             fi
-
-      - name: Build Docker Containers
-        uses: appleboy/ssh-action@master
-        with:
-          host: 49.232.201.229
-          username: ubuntu
-          password: BUaa21374125
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd PaperWingsCarryingQuestions_Basic
             sudo docker compose up --build
-
-      - name: Install Python Dependencies
-        uses: appleboy/ssh-action@master
-        with:
-          host: 49.232.201.229
-          username: ubuntu
-          password: BUaa21374125
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd PaperWingsCarryingQuestions_Basic/Questionnaire_backend
+            cd Questionnaire_backend
             python -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
             pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
             cd backend
             python manage.py test
-            
-    
