@@ -16,7 +16,7 @@ jobs:
       - name: Setup SSH
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
@@ -24,7 +24,7 @@ jobs:
       - name: Install Updates and Basic Tools
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
@@ -38,7 +38,7 @@ jobs:
       - name: Install Docker
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
@@ -53,7 +53,7 @@ jobs:
       - name: Install Docker Compose
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
@@ -67,7 +67,7 @@ jobs:
       # - name: Install Python 3.11
       #   uses: appleboy/ssh-action@master
       #   with:
-      #     host: 192.144.237.215
+      #     host: 82.156.97.95
       #     username: ubuntu
       #     password: BUaa2221
       #     key: ${{ secrets.SSH_KEY }}
@@ -80,7 +80,7 @@ jobs:
       - name: Prepare Application Environment
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
@@ -91,12 +91,12 @@ jobs:
             if [ -d "PaperWingsCarryingQuestions_Basic" ]; then
               cd PaperWingsCarryingQuestions_Basic
               git pull
+              cd ..
             else
               git clone https://github.com/sweetlunar233/PaperWingsCarryingQuestions_Basic.git
-              cd PaperWingsCarryingQuestions_Basic
             fi
 
-            # cd PaperWingsCarryingQuestions_Basic
+            cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire
             sudo npm install
             sudo npm run build
@@ -108,7 +108,7 @@ jobs:
       - name: python manage.py test
         uses: appleboy/ssh-action@master
         with:
-          host: 192.144.237.215
+          host: 82.156.97.95
           username: ubuntu
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}

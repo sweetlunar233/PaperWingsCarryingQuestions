@@ -1,11 +1,11 @@
 # 第一阶段：node镜像打包
 FROM node:20 AS frontend-builder
 WORKDIR /build-app
-#流水线注释掉下面三行
-# RUN cd Questionnaire
+
 COPY . .
-RUN npm install
-RUN npm run build 
+#流水线注释下面两行
+# RUN npm install
+# RUN npm run build 
 
 
 # 第二阶段：nginx打包
