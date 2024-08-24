@@ -115,8 +115,8 @@ jobs:
           script: |
             echo "--------------------------------------------------------------6666666"
             echo "$(ls)"
-            cd /
-            cd home/ubuntu/PaperWingsCarryingQuestions_Basic
+            echo "--------------------------------------------------------------6666666"
+            cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire_backend
             cd backend
             sudo docker exec -it myback python3 manage.py test
