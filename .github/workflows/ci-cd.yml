@@ -144,5 +144,4 @@ jobs:
             cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire_backend
             cd backend
-            echo "--------------------------------------------------------------6666666"
-            sudo docker exec -it myback python3 manage.py test
+            sudo docker exec myback python3 manage.py test
