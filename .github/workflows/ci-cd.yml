@@ -107,7 +107,7 @@ jobs:
 
             # # 运行docker-compose构建并在后台运行
             sudo docker-compose up --build -d
-            wait 60
+            sleep 60
 
             # # 等待指定容器的状态达到 'Up'
             # while true; do
