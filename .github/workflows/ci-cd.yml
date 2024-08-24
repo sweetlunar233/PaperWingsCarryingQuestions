@@ -103,27 +103,29 @@ jobs:
             cd ..
             sudo docker builder prune -a -f
             
-            # sudo docker-compose up --build
+            sudo docker-compose up --build
 
-            # 运行docker-compose构建并在后台运行
+            # # 运行docker-compose构建并在后台运行
             sudo docker-compose up --build -d
-            # 等待指定容器的状态达到 'Up'
-            while true; do
-              # 获取正在运行的容器状态
-              running_containers=$(sudo docker ps --filter "status=running" --format "{{.Names}}")
+            wait 60
+
+            # # 等待指定容器的状态达到 'Up'
+            # while true; do
+            #   # 获取正在运行的容器状态
+            #   running_containers=$(sudo docker ps --filter "status=running" --format "{{.Names}}")
               
-              # 检查指定容器是否都在运行
-              if [[ $(echo "$running_containers" | grep -E 'mydb|myback|myfront' | wc -l) -eq 3 ]]; then
-                  break
-              fi
+            #   # 检查指定容器是否都在运行
+            #   if [[ $(echo "$running_containers" | grep -E 'mydb|myback|myfront' | wc -l) -eq 3 ]]; then
+            #       break
+            #   fi
 
-              echo "wait 5"
-              echo "$(sudo docker ps --filter "status=running" --format "{{.Names}}")"
-              sleep 5
-            done
+            #   echo "wait 5"
+            #   echo "$(sudo docker ps --filter "status=running" --format "{{.Names}}")"
+            #   sleep 5
+            # done
 
 
-            echo "--------------------------------------------------docker-compose finish"
+            # echo "--------------------------------------------------docker-compose finish"
             
 
       - name: python manage.py test
