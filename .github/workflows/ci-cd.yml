@@ -101,9 +101,11 @@ jobs:
             sudo npm install
             sudo npm run build
             cd ..
-            # sudo docker builder prune -a -f
+            # sudo docker builder prune -a -f 
             
             sudo docker-compose up --build
+
+
 
             # # 运行docker-compose构建并在后台运行
             # sudo docker-compose up --build -d
@@ -124,6 +126,7 @@ jobs:
             # done
 
 
+
             echo "--------------------------------------------------docker-compose finish"
             
 
@@ -141,4 +144,5 @@ jobs:
             cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire_backend
             cd backend
+            echo "--------------------------------------------------------------6666666"
             sudo docker exec -it myback python3 manage.py test
