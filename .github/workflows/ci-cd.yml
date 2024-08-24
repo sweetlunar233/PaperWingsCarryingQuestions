@@ -102,7 +102,25 @@ jobs:
             sudo npm run build
             cd ..
             sudo docker builder prune -a -f
-            sudo docker-compose up --build
+            
+            # sudo docker-compose up --build
+
+            # 运行docker-compose构建并在后台运行
+            sudo docker-compose up --build -d
+            # 等待指定容器的状态达到 'Up'
+            while true; do
+                # 获取容器的状态
+                states=$(sudo docker-compose ps --services --filter "status=running" | grep -E 'myback|mydb|myfront')
+                
+                # 检查容器是否都在运行
+                if [[ $(echo "$states" | grep -E 'myback|mydb|myfront' | wc -l) -eq 3 ]]; then
+                    break
+                fi
+
+                sleep 5
+            done
+
+
             echo "--------------------------------------------------docker-compose finish"
             
 
