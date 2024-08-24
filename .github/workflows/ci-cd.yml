@@ -109,17 +109,17 @@ jobs:
             sudo docker-compose up --build -d
             # 等待指定容器的状态达到 'Up'
             while true; do
-                # 获取容器的状态
-                states=$(sudo docker-compose ps --services --filter "status=running" | grep -E 'myback|mydb|myfront')
-                
-                # 检查容器是否都在运行
-                if [[ $(echo "$states" | grep -E 'myback|mydb|myfront' | wc -l) -eq 3 ]]; then
-                    break
-                fi
+              # 获取正在运行的容器状态
+              running_containers=$(sudo docker ps --filter "status=running" --format "{{.Names}}")
+              
+              # 检查指定容器是否都在运行
+              if [[ $(echo "$running_containers" | grep -E 'mydb|myback|myfront' | wc -l) -eq 3 ]]; then
+                  break
+              fi
 
-                echo "wait 5"
-                echo "$(sudo docker-compose ps --services --filter "status=running")"
-                sleep 5
+              echo "wait 5"
+              echo "$(sudo docker ps --filter "status=running" --format "{{.Names}}")"
+              sleep 5
             done
 
 
