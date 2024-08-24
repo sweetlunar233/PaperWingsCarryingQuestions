@@ -118,6 +118,7 @@ jobs:
                 fi
 
                 echo "wait 5"
+                echo "$(sudo docker-compose ps --services --filter "status=running")"
                 sleep 5
             done
 
