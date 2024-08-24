@@ -101,6 +101,7 @@ jobs:
             sudo npm install
             sudo npm run build
             cd ..
+            sudo docker builder prune -a -f
             sudo docker-compose up --build
             echo "--------------------------------------------------docker-compose finish"
             
