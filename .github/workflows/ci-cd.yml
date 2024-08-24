@@ -101,13 +101,12 @@ jobs:
             sudo npm install
             sudo npm run build
             cd ..
-            sudo docker builder prune -a -f
+            # sudo docker builder prune -a -f
             
             sudo docker-compose up --build
 
             # # 运行docker-compose构建并在后台运行
-            sudo docker-compose up --build -d
-            sleep 60
+            # sudo docker-compose up --build -d
 
             # # 等待指定容器的状态达到 'Up'
             # while true; do
@@ -125,7 +124,7 @@ jobs:
             # done
 
 
-            # echo "--------------------------------------------------docker-compose finish"
+            echo "--------------------------------------------------docker-compose finish"
             
 
       - name: python manage.py test

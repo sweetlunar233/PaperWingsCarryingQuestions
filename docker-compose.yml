@@ -1,7 +1,8 @@
 
 services:
   db:
-    build: ./Questionnaire_backend/appDB  # 指向数据库Dockerfile
+    build:
+      context: ./Questionnaire_backend/appDB  # 指向数据库 Dockerfile 的上下文
     image: mydb
     container_name: mydb
     environment:
@@ -15,7 +16,8 @@ services:
       - mynetwork
 
   back:
-    build: ./Questionnaire_backend  # 指向后端文件夹
+    build:
+      context: ./Questionnaire_backend  # 指向后端文件夹的上下文
     image: myback
     container_name: myback
     environment:
@@ -33,7 +35,8 @@ services:
       - mynetwork
 
   front:
-    build: ./Questionnaire  # 指向前端文件夹
+    build:
+      context: ./Questionnaire  # 指向前端文件夹的上下文
     image: myfront
     container_name: myfront
     ports:
