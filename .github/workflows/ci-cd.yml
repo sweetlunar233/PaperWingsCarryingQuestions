@@ -103,28 +103,18 @@ jobs:
             cd ..
             sudo docker-compose up --build
             echo "--------------------------------------------------docker-compose finish"
+            
 
+      - name: python manage.py test
+        uses: appleboy/ssh-action@master
+        with:
+          host: 82.156.97.95
+          username: ubuntu
+          password: BUaa2221
+          key: ${{ secrets.SSH_KEY }}
+          script: |
             echo "--------------------------------------------------------------6666666"
             echo "$(ls)"
-            echo "--------------------------------------------------------------6666666"
             cd Questionnaire_backend
             cd backend
             sudo docker exec -it myback python3 manage.py test
-            
-
-      # - name: python manage.py test
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: 82.156.97.95
-      #     username: ubuntu
-      #     password: BUaa2221
-      #     key: ${{ secrets.SSH_KEY }}
-      #     script: |
-      #       echo "--------------------------------------------------------------6666666"
-      #       echo "$(ls)"
-      #       echo "--------------------------------------------------------------6666666"
-      #       cd PaperWingsCarryingQuestions_Basic
-      #       cd Questionnaire_backend
-      #       cd backend
-      #       sudo docker exec -it myback python3 manage.py test
-
