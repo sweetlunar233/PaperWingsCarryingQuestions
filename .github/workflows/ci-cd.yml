@@ -120,3 +120,4 @@ jobs:
             cd Questionnaire_backend
             cd backend
             sudo docker exec -it myback python3 manage.py test
+
