@@ -113,7 +113,10 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo "--------------------------------------------------------------6666666"
             echo "$(ls)"
+            cd /
+            cd home/ubuntu/PaperWingsCarryingQuestions_Basic
             cd Questionnaire_backend
             cd backend
             sudo docker exec -it myback python3 manage.py test
