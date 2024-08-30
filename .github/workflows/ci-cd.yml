@@ -104,29 +104,6 @@ jobs:
             # sudo docker builder prune -a -f 
             
             sudo docker-compose up --build
-
-
-
-            # # 运行docker-compose构建并在后台运行
-            # sudo docker-compose up --build -d
-
-            # # 等待指定容器的状态达到 'Up'
-            # while true; do
-            #   # 获取正在运行的容器状态
-            #   running_containers=$(sudo docker ps --filter "status=running" --format "{{.Names}}")
-              
-            #   # 检查指定容器是否都在运行
-            #   if [[ $(echo "$running_containers" | grep -E 'mydb|myback|myfront' | wc -l) -eq 3 ]]; then
-            #       break
-            #   fi
-
-            #   echo "wait 5"
-            #   echo "$(sudo docker ps --filter "status=running" --format "{{.Names}}")"
-            #   sleep 5
-            # done
-
-
-
             echo "--------------------------------------------------docker-compose finish"
             
 
@@ -138,9 +115,6 @@ jobs:
           password: BUaa2221
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "--------------------------------------------------------------6666666"
-            echo "$(ls)"
-            echo "--------------------------------------------------------------6666666"
             cd PaperWingsCarryingQuestions_Basic
             cd Questionnaire_backend
             cd backend
